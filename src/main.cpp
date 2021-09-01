@@ -20,7 +20,7 @@ void drawTurtleTriangle()
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("turtletriangle.bmp");
+    output_image.writeToFile("turtle_triangle.bmp");
 }
 
 void drawBinaryFractal()
@@ -44,7 +44,7 @@ void drawBinaryFractal()
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("binaryfractal.bmp");
+    output_image.writeToFile("binary_fractal.bmp");
 }
 
 void drawKochCurve()
@@ -64,7 +64,7 @@ void drawKochCurve()
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("kochcurve.bmp");
+    output_image.writeToFile("koch_curve.bmp");
 }
 
 void drawSierpinskiTriangle()
@@ -86,7 +86,7 @@ void drawSierpinskiTriangle()
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("sierpinskitriangle.bmp");
+    output_image.writeToFile("sierpinski_triangle.bmp");
 }
 
 void drawFractalPlant()
@@ -110,7 +110,7 @@ void drawFractalPlant()
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("fractalplant.bmp");
+    output_image.writeToFile("fractal_plant.bmp");
 }
 
 int main()
