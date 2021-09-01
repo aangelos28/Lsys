@@ -1,6 +1,6 @@
 # Lsys
 
-A simple turtle graphics and L-system C++ library.
+Simple L-system and turtle graphics C++ library.
 
 ---
 L-system example (Sierpinski triangle):
