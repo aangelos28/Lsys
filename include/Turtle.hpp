@@ -46,9 +46,14 @@ namespace lsys
         void executeCommandsDebug();
 
         /**
-         * Clear all commands currently in the turtle's queue
+         * Clear all commands currently in the turtle's queue.
          */
         void clearCommands();
+
+        /**
+         * Reset the transform of the turtle to the initial one.
+         */
+        void resetTransform();
 
         /////////////////////////////////////////////
         // Turtle Commands
@@ -88,6 +93,13 @@ namespace lsys
          */
         void penDown();
 
+        /**
+         * Add a command to the queue of commands.
+         *
+         * @param command Command to add
+         */
+        void addCommand(const std::shared_ptr<TurtleCommand>& command);
+
         /////////////////////////////////////////////
 
         [[nodiscard]]
@@ -115,12 +127,12 @@ namespace lsys
         /**
          * The turtle's initially assigned transform.
          */
-        Transform2d initialTransform;
+        Transform2d initial_transform;
 
         /**
          * Queue of commands to execute for the turtle.
          */
-        std::vector<std::unique_ptr<TurtleCommand>> command_queue;
+        std::vector<std::shared_ptr<TurtleCommand>> command_queue;
 
         /**
          * Stack containing stored transforms for push/pop commands.

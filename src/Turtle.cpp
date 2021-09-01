@@ -5,22 +5,20 @@ namespace lsys
 {
     Turtle::Turtle(const Transform2d& transform, Canvas& canvas)
         : transform(transform)
+        , initial_transform(transform)
         , canvas(canvas)
     {
     }
 
     void Turtle::run()
     {
-        // Save the current transform of the turtle
-        initialTransform = transform;
-
         // Do a dry run to estimate canvas bounds
         canvas.setAllowDrawing(false);
         executeCommands();
         canvas.setAllowDrawing(true);
 
         // Restore the transform of the turtle
-        transform = initialTransform;
+        transform = initial_transform;
 
         // Now run and rasterize
         canvas.allocatePixels();
@@ -55,34 +53,44 @@ namespace lsys
         command_queue.clear();
     }
 
+    void Turtle::resetTransform()
+    {
+        this->transform = initial_transform;
+    }
+
     void Turtle::moveForward(float distance)
     {
-        command_queue.push_back(std::make_unique<MoveForwardCommand>(distance));
+        command_queue.push_back(std::make_shared<MoveForwardCommand>(distance));
     }
 
     void Turtle::turn(int degrees)
     {
-        command_queue.push_back(std::make_unique<TurnCommand>(degrees));
+        command_queue.push_back(std::make_shared<TurnCommand>(degrees));
     }
 
     void Turtle::pushState()
     {
-        command_queue.push_back(std::make_unique<PushStateCommand>());
+        command_queue.push_back(std::make_shared<PushStateCommand>());
     }
 
     void Turtle::popState()
     {
-        command_queue.push_back(std::make_unique<PopStateCommand>());
+        command_queue.push_back(std::make_shared<PopStateCommand>());
     }
 
     void Turtle::penUp()
     {
-        command_queue.push_back(std::make_unique<PenUpCommand>());
+        command_queue.push_back(std::make_shared<PenUpCommand>());
     }
 
     void Turtle::penDown()
     {
-        command_queue.push_back(std::make_unique<PenDownCommand>());
+        command_queue.push_back(std::make_shared<PenDownCommand>());
+    }
+
+    void Turtle::addCommand(const std::shared_ptr<TurtleCommand>& command)
+    {
+        command_queue.push_back(command);
     }
 
     //////////////////////////////////////////////////////////////
