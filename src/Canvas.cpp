@@ -8,9 +8,9 @@ namespace lsys::graphics
         : bounds(bounds)
         , width(width)
         , height(height)
-        , allow_drawing(true)
-        , pen_down(true)
         , pixels(nullptr)
+        , pen_down(true)
+        , allow_drawing(true)
     {
         spacing.x = (bounds.max_x - bounds.min_x) / (float)width;
         spacing.y = (bounds.max_y - bounds.min_y) / (float)height;
