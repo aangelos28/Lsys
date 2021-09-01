@@ -35,7 +35,7 @@ namespace lsys::graphics
     };
 
     /**
-     * RGB color .
+     * RGB color.
      */
     struct RgbColor
     {
