@@ -39,8 +39,8 @@ void drawBinaryFractal()
     lsystem.addRule('0', "1[+0]-0");
     lsystem.addRule('1', "11");
 
-    lsystem.iterate(10);
-    lsystem.evaluate(turtle);
+    lsystem.evaluate(10);
+    lsystem.draw(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
@@ -59,8 +59,8 @@ void drawKochCurve()
     lsystem.addSymbol('-', std::make_shared<lsys::TurnCommand>(-90));
     lsystem.addRule('F', "F+F-F-F+F");
 
-    lsystem.iterate(6);
-    lsystem.evaluate(turtle);
+    lsystem.evaluate(6);
+    lsystem.draw(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
@@ -81,8 +81,8 @@ void drawSierpinskiTriangle()
     lsystem.addRule('F', "F-G+F+G-F");
     lsystem.addRule('G', "GG");
 
-    lsystem.iterate(7);
-    lsystem.evaluate(turtle);
+    lsystem.evaluate(7);
+    lsystem.draw(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
@@ -105,8 +105,8 @@ void drawFractalPlant()
     lsystem.addRule('X', "F+[[X]-X]-F[-FX]+X");
     lsystem.addRule('F', "FF");
 
-    lsystem.iterate(6);
-    lsystem.evaluate(turtle);
+    lsystem.evaluate(6);
+    lsystem.draw(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());

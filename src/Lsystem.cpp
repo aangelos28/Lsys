@@ -4,7 +4,7 @@
 namespace lsys
 {
     Lsystem::Lsystem()
-        : is_iterated(false)
+        : is_evaluated(false)
     {
     }
 
@@ -18,14 +18,14 @@ namespace lsys
         }
     }
 
-    void Lsystem::evaluate(Turtle& turtle)
+    void Lsystem::draw(Turtle& turtle)
     {
-        if (!this->is_iterated) return;
+        if (!this->is_evaluated) return;
 
         turtle.clearCommands();
         turtle.resetTransform();
 
-        for (char c : iterated_axiom)
+        for (char c : evaluated_axiom)
         {
             auto command = symbols[c];
             if (command == nullptr) continue;
@@ -36,21 +36,21 @@ namespace lsys
         turtle.run();
     }
 
-    void Lsystem::iterate(unsigned int iterations)
+    void Lsystem::evaluate(unsigned int iterations)
     {
-        if (this->is_iterated) return;
+        if (this->is_evaluated) return;
 
-        iterated_axiom = axiom;
+        evaluated_axiom = axiom;
 
         for (unsigned int i = 0; i < iterations; ++i)
         {
             for (const auto& rule : rules)
             {
-                replaceStrChar(iterated_axiom, rule.first, rule.second);
+                replaceStrChar(evaluated_axiom, rule.first, rule.second);
             }
         }
 
-        this->is_iterated = true;
+        this->is_evaluated = true;
     }
 
     const std::string& Lsystem::getAxiom() const
@@ -61,12 +61,12 @@ namespace lsys
     void Lsystem::setAxiom(const std::string& axiom)
     {
         this->axiom = axiom;
-        this->is_iterated = false;
+        this->is_evaluated = false;
     }
 
-    const std::string& Lsystem::getIteratedAxiom() const
+    const std::string& Lsystem::getEvaluatedAxiom() const
     {
-        return iterated_axiom;
+        return evaluated_axiom;
     }
 
     const std::unordered_map<char, std::shared_ptr<TurtleCommand>>& Lsystem::getSymbols() const
@@ -77,7 +77,7 @@ namespace lsys
     void Lsystem::setSymbols(const std::unordered_map<char, std::shared_ptr<TurtleCommand>>& symbols)
     {
         this->symbols = symbols;
-        this->is_iterated = false;
+        this->is_evaluated = false;
     }
 
     void Lsystem::addSymbol(char character, std::shared_ptr<TurtleCommand> turtle_command)
@@ -86,7 +86,7 @@ namespace lsys
         if (symbols.find(character) != symbols.end()) return;
 
         symbols.insert({character, turtle_command});
-        this->is_iterated = false;
+        this->is_evaluated = false;
     }
 
     const std::unordered_map<char, std::string>& Lsystem::getRules() const
@@ -97,7 +97,7 @@ namespace lsys
     void Lsystem::setRules(const std::unordered_map<char, std::string>& rules)
     {
         this->rules = rules;
-        this->is_iterated = false;
+        this->is_evaluated = false;
     }
 
     void Lsystem::addRule(char character, const std::string& replacement)
@@ -106,6 +106,6 @@ namespace lsys
         if (rules.find(character) != rules.end()) return;
 
         rules.insert({character, replacement});
-        this->is_iterated = false;
+        this->is_evaluated = false;
     }
 }

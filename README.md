@@ -22,11 +22,11 @@ lsystem.addSymbol('-', std::make_shared<lsys::TurnCommand>(-120));
 lsystem.addRule('F', "F-G+F+G-F");
 lsystem.addRule('G', "GG");
 
-// Recursively iterate L-system 7 times
-lsystem.iterate(7);
+// Recursively evaluate L-system 7 times
+lsystem.evaluate(7);
     
-// Evaluate L-system by drawing with the turtle
-lsystem.evaluate(turtle);
+// Draw L-system with turtle
+lsystem.draw(turtle);
 
 // Write turtle canvas as a BMP image
 lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
