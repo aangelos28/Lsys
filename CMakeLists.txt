@@ -9,4 +9,5 @@ set(LSYS_SOURCE_LIST
 
 include_directories(include)
 
-add_executable(lsys ${LSYS_SOURCE_LIST})
+add_executable(lsys-samples ${LSYS_SOURCE_LIST})
+add_library(lsys STATIC ${LSYS_SOURCE_LIST})
