@@ -4,29 +4,23 @@
 #include "Turtle.hpp"
 #include "BmpImage.hpp"
 
-void drawTurtleY()
+void drawTurtleTriangle()
 {
-    lsys::Canvas canvas({0, 0, 0, 0}, 1000, 1000);
-    lsys::Turtle turtle({{500, 0}, 0}, canvas);
+    lsys::Canvas canvas({0, 0, 0, 0}, 1000, 600);
+    lsys::Turtle turtle({{250, 100}, 0}, canvas);
 
-    // Draw a simple Y with the turtle
-    turtle.turn(90);
-    turtle.penUp();
-    turtle.moveForward(100);
-    turtle.penDown();
-    turtle.moveForward(80);
-    turtle.pushState();
-    turtle.turn(30);
-    turtle.moveForward(50);
-    turtle.popState();
-    turtle.turn(-30);
-    turtle.moveForward(50);
+    // Draw an isosceles triangle with the turtle
+    turtle.moveForward(499);
+    turtle.turn(120);
+    turtle.moveForward(500);
+    turtle.turn(120);
+    turtle.moveForward(499);
 
     turtle.run();
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("output.bmp");
+    output_image.writeToFile("turtletriangle.bmp");
 }
 
 void drawBinaryFractal()
@@ -46,18 +40,16 @@ void drawBinaryFractal()
     lsystem.addRule('1', "11");
 
     lsystem.iterate(10);
-    std::cout << lsystem.getIteratedAxiom() << '\n';
-
     lsystem.evaluate(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("output.bmp");
+    output_image.writeToFile("binaryfractal.bmp");
 }
 
 void drawKochCurve()
 {
-    lsys::Canvas canvas({0, 0, 0, 0}, 11000, 6000);
+    lsys::Canvas canvas({0, 0, 0, 0}, 3800, 2000);
     lsys::Turtle turtle({{50, 50}, 0}, canvas);
 
     lsys::Lsystem lsystem;
@@ -67,14 +59,12 @@ void drawKochCurve()
     lsystem.addSymbol('-', std::make_shared<lsys::TurnCommand>(-90));
     lsystem.addRule('F', "F+F-F-F+F");
 
-    lsystem.iterate(7);
-    std::cout << lsystem.getIteratedAxiom() << '\n';
-
+    lsystem.iterate(6);
     lsystem.evaluate(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("output.bmp");
+    output_image.writeToFile("kochcurve.bmp");
 }
 
 void drawSierpinskiTriangle()
@@ -92,23 +82,49 @@ void drawSierpinskiTriangle()
     lsystem.addRule('G', "GG");
 
     lsystem.iterate(7);
-    std::cout << lsystem.getIteratedAxiom() << '\n';
-
     lsystem.evaluate(turtle);
 
     // Write turtle canvas as a BMP image
     lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
-    output_image.writeToFile("output.bmp");
+    output_image.writeToFile("sierpinskitriangle.bmp");
+}
+
+void drawFractalPlant()
+{
+    lsys::Canvas canvas({0, 0, 0, 0}, 3000, 3000);
+    lsys::Turtle turtle({{400, 50}, 60}, canvas);
+
+    lsys::Lsystem lsystem;
+    lsystem.setAxiom("X");
+    lsystem.addSymbol('X', nullptr);
+    lsystem.addSymbol('F', std::make_shared<lsys::MoveForwardCommand>(15));
+    lsystem.addSymbol('+', std::make_shared<lsys::TurnCommand>(25));
+    lsystem.addSymbol('-', std::make_shared<lsys::TurnCommand>(-25));
+    lsystem.addSymbol('[', std::make_shared<lsys::PushStateCommand>());
+    lsystem.addSymbol(']', std::make_shared<lsys::PopStateCommand>());
+    lsystem.addRule('X', "F+[[X]-X]-F[-FX]+X");
+    lsystem.addRule('F', "FF");
+
+    lsystem.iterate(6);
+    lsystem.evaluate(turtle);
+
+    // Write turtle canvas as a BMP image
+    lsys::io::BmpImage output_image(turtle.getCanvas().getPixels(), turtle.getCanvas().getWidth(), turtle.getCanvas().getHeight());
+    output_image.writeToFile("fractalplant.bmp");
 }
 
 int main()
 {
-    std::cout << "Turtle program" << std::endl;
+    std::cout << "Lsys" << std::endl;
+    std::cout << "Generating images..." << std::endl;
 
-    //drawTurtleY();
-    //drawBinaryFractal();
-    //drawKochCurve();
+    drawTurtleTriangle();
+    drawBinaryFractal();
+    drawKochCurve();
     drawSierpinskiTriangle();
+    drawFractalPlant();
+
+    std::cout << "\nDone." << std::endl;
 
     return 0;
 }

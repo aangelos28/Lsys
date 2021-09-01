@@ -100,7 +100,7 @@ namespace lsys::graphics
 
         while (true)
         {
-            pixels[start.y][start.x] = RgbColor(255, 0, 0);
+            pixels[start.y][start.x] = RgbColor(255, 255, 255);
 
             if (start.x == end.x && start.y == end.y)
                 break;
